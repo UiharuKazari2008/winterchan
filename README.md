@@ -1,3 +1,4 @@
+![Winterchan Logo](https://code.acr.moe/kazari/winterchan/blob/master/static/Winterchan-Logo-2018-Web.png)
 Winterchan - A better fork of lainchan and vichan
 ========================================================
 
