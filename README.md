@@ -1,11 +1,11 @@
-Lainchan - A fork of vichan
+Winterchan - A better fork of lainchan and vichan
 ========================================================
 
 About
 ------------
-Lainchan is a fork of [vichan](http://github.com/vichan-devel/vichan),
+Winterchan is a fork of Lainchan, that's a fork of [vichan](http://github.com/vichan-devel/vichan) (3 LAYER OF FORK BITCH!!),
 a great imageboard package, actively building on it and adding a lot of features and other
-improvements.
+improvements. It's redesigned for speed and a modern design first!
 
 Requirements
 ------------
@@ -15,39 +15,42 @@ Requirements
 3.	[mbstring](http://www.php.net/manual/en/mbstring.installation.php) 
 4.	[PHP GD](http://www.php.net/manual/en/intro.image.php)
 5.	[PHP PDO](http://www.php.net/manual/en/intro.pdo.php)
+6.	ImageMagick (command-line ImageMagick or GraphicsMagick preferred).
+7.  ffmpeg (for webm, this is built in at this point)
+8.  exiftool (another built in feature that you should use)
 
-We try to make sure lainchan is compatible with all major web servers and
-operating systems. lainchan does not include an Apache ```.htaccess``` file nor does
-it need one.
+We try to make sure winterchan is compatible with all major MODERN web servers (Chrome and Safari) and
+operating systems. I have no plans to test and continue support for pre-2010 browsers, sorry. 
+winterchan does not include an Apache ```.htaccess``` file nor does it need one.
 
 ### Recommended
 1.	MySQL/MariaDB server >= 5.5.3
-2.	ImageMagick (command-line ImageMagick or GraphicsMagick preferred).
-3.	[APC (Alternative PHP Cache)](http://php.net/manual/en/book.apc.php),
+2.	[APC (Alternative PHP Cache)](http://php.net/manual/en/book.apc.php),
 	[XCache](http://xcache.lighttpd.net/) or
 	[Memcached](http://www.php.net/manual/en/intro.memcached.php)
 
 Contributing
 ------------
-You can contribute to lainchan by:
+You can contribute to winterchan by:
 *	Developing patches/improvements/translations and using GitHub to submit pull requests
 *	Providing feedback and suggestions
 *	Writing/editing documentation
 
 If you need help developing a patch, please join our IRC channel. 
 
-> irc.freenode.net @ #lainchan-dev
+> irc.freenode.net @ #winterchan-dev
 
 Installation
 -------------
-1.	Download and extract lainchan to your web directory or get the latest
+1.	Download and extract winterchan to your web directory or get the latest
 	development version with:
 
-        git clone git://github.com/lainchan/lainchan.git
+        git clone https://code.acr.moe/kazari/winterchan/
 	
-2.	Navigate to ```install.php``` in your web browser and follow the
+2.  Install ImageMagick, ffmpeg, and exiftool.
+3.	Navigate to ```install.php``` in your web browser and follow the
 	prompts.
-3.	lainchan should now be installed. Log in to ```mod.php``` with the
+4.	winterchan should now be installed. Log in to ```mod.php``` with the
 	default username and password combination: **admin / password**.
 
 Please remember to change the administrator account password.
@@ -69,16 +72,16 @@ Support
 --------
 If you find a bug, please report it.
 
-If you need assistance with installing, configuring, or using lainchan, you may
+If you need assistance with installing, configuring, or using winterchan, you may
 find support from a variety of sources:
 
 *	If you're unsure about how to enable or configure certain features, make
 	sure you have read the comments in ```inc/config.php```.
-*	You can join lainchan's IRC channel for support
-	[irc.freenode.net #lainchan](irc://irc.freenode.net/lainchan)
+*	You can join winterchan's IRC channel for support
+	[irc.freenode.net #winterchan](irc://irc.freenode.net/winterchan)
 
 ### Tinyboard support
-vichan, and by extension lainchan, is based on a Tinyboard, so both engines have very much in common. These
+vichan, and by extension winterchan, is based on a Tinyboard, so both engines have very much in common. These
 links may be helpful for you as well: 
 
 *	Tinyboard documentation can be found [here](https://web.archive.org/web/20121016074303/http://tinyboard.org/docs/?p=Main_Page).
@@ -86,11 +89,10 @@ links may be helpful for you as well:
 Donations
 ---------
 Do you like our work? You can motivate us financially to do better ;)
-* Bitcoin: 18CshTkxW6HRFoBhXo9mLJcjkReMmjvuq9
+* Cash App - $ykazari
 
-You can also ask us to develop some feature specially for you <3. Join our IRC
-channel and ask for a quote (there are a few of us, who work with the codebase
-and are skilled enough to develop such features pretty quickly).
+You can also ask us to develop some feature specially for you <3. Join our [Telegram group](https://t.me/yukichan) 
+and ask for a Lord Kazari. You need to have a profile photo or I will not acknowledge your existence. (Think I'm joking)
 
 CLI tools
 -----------------
@@ -104,13 +106,13 @@ at the power users. You won't be able to run these from shared hosting accounts
 
 Localisation
 ------------
-Wanting to have lainchan in your language? You can contribute your translations to vichan at this URL:
+Wanting to have winterchan in your language? You can contribute your translations to vichan at this URL:
 
 https://www.transifex.com/projects/p/tinyboard-vichan-devel/
 
 Oekaki
 ------
-lainchan makes use of [wPaint](https://github.com/websanova/wPaint) for oekaki. After you pull the repository, however, you will need to download wPaint separately using git's `submodule` feature. Use the following commands:
+winterchan makes use of [wPaint](https://github.com/websanova/wPaint) for oekaki. After you pull the repository, however, you will need to download wPaint separately using git's `submodule` feature. Use the following commands:
 
 ```
 git submodule init
@@ -123,12 +125,12 @@ WebM support
 ------------
 Read `inc/lib/webm/README.md` for information about enabling webm.
 
-lainchan API
+winterchan API
 ----------
-lainchan provides by default a 4chan-compatible JSON API, just like vichan. For documentation on this, see:
+winterchan provides by default a 4chan-compatible JSON API, just like vichan. For documentation on this, see:
 https://github.com/vichan-devel/vichan-API/ .
 
 License
 --------
-See [LICENSE.md](http://github.com/lainchan/lainchan/blob/master/LICENSE.md).
+See [LICENSE.md](https://code.acr.moe/kazari/winterchan/blob/master/LICENSE.md).
 
