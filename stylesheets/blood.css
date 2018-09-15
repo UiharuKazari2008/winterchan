@@ -1,0 +1,33 @@
+.bar{background-color:#560302;border-color:#ff050a;}
+.bar.top{border-bottom:1px solid #ff0510;}
+.bar.bottom{border-top:1px solid #ff050c;background-color:#170002;}
+#background_color{background-image:url(/static/page-bg/guro1.jpg);opacity:0.4;}
+body{background:#000;color:#ffc2c4;}
+#reply-button,.reply-button,.settings-button,.threadlink a,#update_thread,.pages a{background:rgba(255,5,58,0.54);color:#ffdfee!important;}
+a,a:visited{color:#ff2b26;}
+a:hover,.intro a.post_no:hover{color:#fff;}
+header div.subtitle,h1{color:#f77276;}
+input{color:#dcb1bb;border-color:#c80410;}
+input[type=submit]{background:#ca0407;color:#ffecf3;}
+input[type="text"],input[type="password"]{color:#dcb1bb;border-color:#97030a;}
+textarea{color:#dcb1bb;border-color:#90030e;}
+#upload input[type="file"]{background:#880307;}
+form table tr th{background:#1f0102;color:#ffbcc6;}
+div.banner{background:#35070f;border:2px solid #d93038;}
+div.banner,div.banner a{color:#dc6153;}
+div.banner a:hover{color:#EEF2FF;}
+img.banner,img.board_image{border:1px dashed #960306;}
+div.post.op{background-image:linear-gradient(rgba(212,4,8,0.49), transparent);}
+div.post.op .intro{background-color:rgba(116,2,33,0.57);}
+p.fileinfo a,p.fileinfo a:visited{color:#ffcdd7;}
+span.underpost.details_id a{color:#c45a61;}
+div.post.op hr{border-color:#D9BFB7;}
+.intro span.subject{color:#ffc4c9;}
+.intro span.name{color:#b93b34;}
+div.post.reply.highlighted{background:#333;}
+div.post.reply div.body a{color:#ffabad;}
+div.post.reply{background:rgba(43,2,8,0.76);border-color:#430107;}
+hr{border-top:1px dashed #ab1902;}
+span.omitted{background:rgba(255,5,45,0.34);}
+div.boardlist{color:#ff757c;}
+div.blotter{color:#ff8c91;}

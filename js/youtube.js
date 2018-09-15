@@ -29,7 +29,7 @@ onready(function(){
 			var videoID = $(this.parentNode).data('video');
 		
 			$(this.parentNode).html('<iframe style="float:left;margin: 10px 20px" type="text/html" '+
-				'width="360" height="270" src="//www.youtube.com/embed/' + videoID +
+				'width="360" height="270" src="//www.youtube-nocookie.com/embed/' + videoID +
 				'?autoplay=1&html5=1" allowfullscreen frameborder="0"/>');
 
 			return false;

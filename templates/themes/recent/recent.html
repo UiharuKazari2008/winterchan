@@ -2,76 +2,123 @@
 <!doctype html>
 <html>
 <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>{{ settings.title }}</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html">
+	{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.url_favicon }}">{% endif %}
+	<link rel="mask-icon" href="{{ config.meta_pinned_icon }}" color="{{ config.meta_pinned_color }}" >
+	<meta name="theme-color" content="{{ config.meta_theme_color }}">
+	{% if config.meta_keywords %}<meta name="keywords" content="{{ config.meta_keywords }}">{% endif %}
+	<meta http-equiv="refresh" content="900" >
 	<link rel="stylesheet" media="screen" href="{{ config.root}}stylesheets/style.css"/>
 	<link rel="stylesheet" media="screen" href="{{ config.root}}stylesheets/recent.css"/>
-	<link rel="stylesheet" media="screen" href="https://lainchan.org/stylesheets/font-awesome/css/font-awesome.min.css"/>
-
-	{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.url_favicon }}" />{% endif %}
+	<!--<script src="snowstorm.js"></script>-->
 </head>
 <body>
-	<div class="bar top">
+	<div id="background_wrap"></div>
+	<div class="top-logo">
+		<img src="/static/Winterchan-Logo-2018-Web.png"/>
+	</div>
+<!--<video autoplay="" loop="" id="video-background"><source src="static/vaporlain_vbg.mp4" type="video/mp4"></video>-->
+	<!--<div class="bar top">
 		{{ boardlist.top }}
+	</div>-->
+	<div class="ban" id="global-hedder">
+		<table width="700" border="0" cellspacing="0" cellpadding="0" >
+  		  <tr>
+    		  <td colspan="3"><table width="700" border="0" cellspacing="0" cellpadding="0" align="center">
+				  <tr class="board-category" >
+				    <td width="175" align="center">Otaku</td>
+				    <td width="175" align="center">Technology</td>
+				    <td width="175" align="center">Media</td>
+				    <td width="175" align="center">Lifestyle</td>
+				  </tr>
+				  <tr>
+		    		  <td width="175" align="center" valign="top">
+						  <ul>
+						      <li><a href="/a/index.html" title="Anime Talk">Anime</a></li>
+						      <li><a href="/w/index.html" title="Anime Wallpapers">Wallpapers</a></li>
+						      <li><a href="/c/index.html" title="Cosplay Pictures and Talk">Cosplay</a><span class="nsfw-label over15">&nbsp;Ecchi</span></li>
+						      <li><a href="/f/index.html" title="Figures from Japan">Figures</a></li>
+						      <li><a href="/jp/index.html" title="Everything Japan">Japan</a></li>
+							  <li><a href="/h/index.html" title="Its all about the plot">Hentai</a><span class="nsfw-label">&nbsp;18+</span></li>
+							  <li><a href="/plump/index.html" title="The love of all round">Plump</a><span class="nsfw-label">&nbsp;18+</span></li>
+						      <li><a href="/guro/index.html" title="Ero Guro">Guro</a><span class="nsfw-label">&nbsp;18+G</span></li>
+						  </ul>
+					  </td>
+					    <td width="175" align="center" valign="top"><ul>
+					      <li><a href="/t/index.html" title="Computers and shit like that">Technolgy</a></li>
+					      <li><a href="/sci/index.html" title="Its science bitch!">Science</a></li>
+					      <li><a href="/nix/index.html" title="Linux and UNIX">Linux</a></li>
+					      <li><a href="/l/index.html" title="Your IP address is 127.0.0.1">Cyberia</a></li>
+					      <li><a href="/dat/index.html" title="File Sharing">File Sharing</a></li>
+					      <li><a href="/acr/index.html" title="Q&amp;A and Info from the people that work at Academy City Research">Winter Gov.</a></li>
+					    </ul></td>
+					    <td width="175" align="center" valign="top"><ul>
+					      <li><a href="/m/index.html" title="Music and Talk">Music</a></li>
+					      <li><a href="/v/index.html" title="Videos from the Internet">Videos</a></li>
+						  <li><a href="/amv/index.html" title="Great, Vegas just crashed...">AMVs</a></li>
+						  <li><a href="/vw/index.html" title="Vaporwave is not dead">Vaporwave</a></li>
+						  <li><a href="/ca/index.html" title="JPEGs are for N00BZ">Photography</a></li>
+					    </ul>
+					    </td>
+					    <td width="175" align="center" valign="top"><ul>
+					      <li><a href="/b/index.html" title="Place your shitposts here">Random</a></li>
+					      <li><a href="/s/index.html" title="Stuff that happens in life">Stories</a></li>
+					      <li><a href="/co/index.html" title="Cooking for Beginners">Cooking</a></li>
+					      <li><a href="/au/index.html" title="Vroom Vroom">Automotive</a></li>
+					      <li><a href="/k/index.html" title="Guns, Knives, Tanks, War, all the cool shit">Military</a></li>
+					      <li><a href="/n/index.html" title="Inside is better">News</a></li>
+					      <li><a href="/p/index.html" title="#HEISYOURPRESIDENT get over your self fgt">Politics</a></li>
+					      <li><a href="/at/index.html" title="God is gay :-)">Atheism</a></li>
+					    </ul>
+					</td>
+				</tr>
+			</table>
+	</td>
+</table></div>
+	<div class="section-contr" id="global">
+		<div class="left sections">
+			<div class="ban box">
+				<h2>Recent Images</h2>
+				<ul>
+					{% for post in recent_images %}
+						<li>
+							<a href="{{ post.link }}">
+								<img src="{{ post.src }}" alt="">
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="ban box">
+				<h2>Stats</h2>
+				<ul>
+					<li>Total posts: {{ stats.total_posts }}</li>
+					<li>Total unique posters: Not trackable</li>
+					<li>Active content: {{ stats.active_content|filesize }}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="right sections">
+			<div class="ban box">
+				<h2>Latest Posts</h2>
+				<ul>
+					{% for post in recent_posts %}
+						<li>
+							<strong>{{ post.board_name }}</strong>: 
+							<a href="{{ post.link }}">
+								{{ post.snippet }}
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="ban box">
+				<a href="rules.html">Rules</a> - <a href="https://kazari.space" target="_top">Contact Webmaster</a> - <a href="mailto:dmca@winterchan.org">DMCA Request</a> - <a href="https://code.acr.moe/kazari/winterchan">Source</a>
+			</div>
+		</div>
 	</div>
-
-	<header>
-		<center>
-			<img alt="header" class="lain_banner" src="static/lainchan_header_console.gif"/>
-		</center>
-	</header>
-<br>
-
-    <img alt="mascot" class="lain_banner"src="static/lain_banner1.png"/>
-
- <br>
-
-     <div class="ban" id="global">      <h2>CYBERPUNK IS DEAD</h2>  Pour out the Soykaf, lurk, and read the <a href="https://lainchan.org/rules">rules</a> before posting!    </div> 
-
-    <br>
-
-	<div class="ban" id="global">
-		<div class="box left">
-			<h2>Recent Images</h2>
-			<ul>
-				{% for post in recent_images %}
-					<li>
-						<a href="{{ post.link }}">
-							<img src="{{ post.src }}" style="width:{{ post.thumbwidth }}px;height:{{ post.thumbheight }}px" alt="">
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-		</div>
-		<div class="box right">
-			<h2>Latest Posts</h2>
-			<ul>
-				{% for post in recent_posts %}
-					<li>
-						<strong>{{ post.board_name }}</strong>: 
-						<a href="{{ post.link }}">
-							{{ post.snippet }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-		</div>
-		<div class="box right">
-			<h2>Stats</h2>
-			<ul>
-				<li>Total posts: {{ stats.total_posts }}</li>
-				<li>Unique posters: {{ stats.unique_posters }}</li>
-				<li>Active content: {{ stats.active_content|filesize }}</li>
-			</ul>
-		</div>
-	</div>
-
-	<footer>
-        <center>
-        	<a href="mailto:admin@lainchan.org?Subject=Hello" target="_top">admin@lainchan.org</a>
-        </center>
-
-	</footer>
 </body>
 </html>
 {% endfilter %}

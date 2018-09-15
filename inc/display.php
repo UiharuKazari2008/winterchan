@@ -28,18 +28,18 @@ function doBoardListPart($list, $root, &$boards) {
 			$body .= ' <span class="sub" data-description="' . $key . '">[' . doBoardListPart($board, $root, $boards) . ']</span> ';
 		else {
 			if (gettype($key) == 'string') {
-				$body .= ' <a href="' . $board . '">' . $key . '</a> /';
+				$body .= ' <a href="' . $board . '" class="board-link">' . $key . '</a>';
 			} else {
 				$title = '';
 				if (isset ($boards[$board])) {
 					$title = ' title="'.$boards[$board].'"';
 				}
 				
-				$body .= ' <a href="' . $root . $board . '/' . $config['file_index'] . '"'.$title.'>' . $board . '</a> /';
+				$body .= ' <a href="' . $root . $board . '/' . $config['file_index'] . '" class="board-link"'.$title.'>' . $board . '</a>';
 			}
 		}
 	}
-	$body = preg_replace('/\/$/', '', $body);
+	/*$body = preg_replace('/\|$/', '', $body);*/
 	
 	return $body;
 }

@@ -14,11 +14,10 @@
 			{% include 'post/time.html' %}
 		</label>
 		{% include 'post/poster_id.html' %}&nbsp;
-		<a class="post_no" id="post_no_{{ post.id }}" onclick="highlightReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('', config.file_page50) }}{% else %}{{ post.link }}{% endif %}">No.</a>
-		<a class="post_no" onclick="citeReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id }}</a>
-	</p>
-	    {% include 'post/fileinfo.html' %} 
+		<a class="post_no" id="post_no_{{ post.id }}" onclick="highlightReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('', config.file_page50) }}{% else %}{{ post.link }}{% endif %}">No: </a><a class="post_no" onclick="citeReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id }}</a>
 	    {% include 'post/post_controls.html' %}
+		{% include 'post/fileinfo.html' %} 
+	</p>
 		<div class="body" {% if post.files|length > 1 %}style="clear:both"{% endif %}>
 			{% endfilter %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% filter remove_whitespace %}
 			{% if post.modifiers['ban message'] %}

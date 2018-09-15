@@ -2,13 +2,13 @@
 <html>
 <head>
 	{% block head %}
-	{% include 'header.html' %}
 	<title>{{ board.url }} - {{ board.name }}</title>
+	{% include 'header-common.html' %}
+	{% include 'header.html' %}
 	{% endblock %}
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
 <body>	
+	<div id="background_color"></div>
 	{{ boardlist.top }}
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
 	{% if config.url_banner %}<img class="banner" src="{{ config.url_banner }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
@@ -21,12 +21,10 @@
 			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
 		</div>
 	</header>
-	
 	{% include 'attention_bar.html' %}
 	{% include 'post_form.html' %}
-	
 	{% if config.global_message %}<hr /><div class="blotter">{{ config.global_message }}</div>{% endif %}
-	<hr />
+	<hr/>
 	<form name="postcontrols" action="{{ config.post_url }}" method="post">
 	<input type="hidden" name="board" value="{{ board.uri }}" />
 	{% if mod %}<input type="hidden" name="mod" value="1" />{% endif %}
@@ -38,11 +36,8 @@
 	{% endfor %} {{ btn.next }}</div>
 	{{ boardlist.bottom }}
 	<footer>
-		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
-			<a href='https://int.vichan.net/devel/'>vichan</a> {{ config.version }} -
-		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group    
-		<br><a href="https://engine.vichan.net/">vichan</a> Copyright &copy; 2012-2015 vichan-devel</p>
-		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
+		{% include 'badges.html' %}
+		{% include 'footer.html' %}
 	</footer>
 	<script type="text/javascript">{% raw %}
 		ready();

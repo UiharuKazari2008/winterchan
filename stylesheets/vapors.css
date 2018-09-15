@@ -1,0 +1,26 @@
+.bar{background-color:#000;border-color:#ff050a;}
+.bar.top{border-bottom:1px solid #ff05e3;}
+.bar.bottom{border-top:1px solid #ff05e3;background-color:#170002;}
+#background_color{background-image:linear-gradient(rgba(185,103,255,0.35), transparent 77.73%;background-attachment:scroll;}
+body{background:#000;color:#05ffa1;}
+#reply-button,.reply-button,.settings-button,.threadlink a,#update_thread,.pages a{background:background: rgba(255,113,206,0.72);color:#ffe9fa!important;}
+a,a:visited{color:#05fefa;}
+a:hover,.intro a.post_no:hover{color:#fff;}
+header div.subtitle,h1{color:#ff71ce;}
+input[type=submit]{background:#f04bff;color:#000;}
+#upload input[type="file"]{background:#892b92;}
+form table tr th{background:#590244;color:#dcc0d8;}
+div.banner{background:#35070f;border:2px solid #d93038;}
+div.banner,div.banner a{color:#ff64e2;}
+div.banner a:hover{color:#EEF2FF;}
+img.banner,img.board_image{border:1px dashed #aa2a8f;}
+div.post.op hr{border-color:#D9BFB7;}
+.intro span.subject{color:#ffbafd;}
+.intro span.name{color:#6d0252;}
+div.post.reply.highlighted{background:#333;}
+div.post.reply div.body a{color:#fffb96;}
+div.post.reply{background:rgba(84,2,74,0.3);border-color:#4c0135;}
+hr{border-top:1px dashed #b3059e;}
+div.boardlist{color:#ff07e4;}
+div.blotter{color:#ffc3f2;}
+input,input[type="text"],input[type="password"],textarea{color:#dcc0d8;border-color:#f04bff;}

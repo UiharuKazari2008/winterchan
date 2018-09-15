@@ -1,0 +1,31 @@
+.bar{background-color:#FFF;border-color:#ff050a;}
+.bar.top{border-bottom:1px solid #ff05e3;}
+.bar.bottom{border-top:1px solid #ff05e3;background-color:#170002;}
+#background_color{background-image:url(/static/page-bg/fat.jpg);opacity:0.4;}
+body{background:#000;color:#c68dca;}
+#reply-button,.reply-button,.settings-button,.threadlink a,#update_thread,.pages a{background:rgba(255,5,228,0.54);color:#ffe9fa!important;}
+a,a:visited{color:#ff43aa;}
+a:hover,.intro a.post_no:hover{color:#fff;}
+header div.subtitle,h1{color:#ff8fdc;}
+input[type=submit]{background:#f04bff;color:#000;}
+#upload input[type="file"]{background:#892b92;}
+form table tr th{background:#590244;color:#dcc0d8;}
+div.banner{background:#240121;border:2px solid #e505cd;}
+div.banner,div.banner a{color:#ff64e2;}
+div.banner a:hover{color:#EEF2FF;}
+img.banner,img.board_image{border:1px dashed #aa2a8f;}
+div.post.op{background-image:linear-gradient(rgba(212,4,210,0.49), transparent);}
+div.post.op .intro{background-color:rgba(109,3,130,0.23);}
+p.fileinfo a,p.fileinfo a:visited{color:#ffc2ec;}
+span.underpost.details_id a{color:#ba7cb3;}
+div.post.op hr{border-color:#D9BFB7;}
+.intro span.subject{color:#ffbafd;}
+.intro span.name{color:#6d0252;}
+div.post.reply.highlighted{background:#333;}
+div.post.reply div.body a{color:#ffabad;}
+div.post.reply{background:rgba(84,2,74,0.3);border-color:#4c0135;}
+hr{border-top:1px dashed #b3059e;}
+span.omitted{background:rgba(255,5,214,0.34);}
+div.boardlist{color:#ff07e4;}
+div.blotter{color:#ffc3f2;}
+input,input[type="text"],input[type="password"],textarea{color:#dcc0d8;border-color:#f04bff;}

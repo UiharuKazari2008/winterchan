@@ -1,50 +1,63 @@
-/**
- * dark.css
- * Stolen from circlepuller who stole it from derpcat
- */
-body 
-{
-	background: #0b000f;
-	color: #7fdd57;
-	font-family: sans-serif;
-	font-size: 12px;
-	margin:auto:
-	}
-.lain_banner{
-margin-left: auto;
-	margin-right: auto;
-	display: block;
-
+video {
+        position: fixed;
+        opacity: .40;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background: url(static/bg.jpg) no-repeat;
+        background-size: cover;
+        background-position: center center;
 }
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('../fonts/fontawesome-webfont.eot?v=4.4.0');
-    src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.4.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.4.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.4.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.4.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal
+.board-category {
+	font-weight: bold;
+	font-size: 30px;
+	font-style: italic;
+	text-align: center;
 }
-
-
+.topabout {
+	border-bottom-width: 10px;
+	border-bottom-style: solid;
+	border-color:transparent;
+	text-align:center;
+}
+.nsfw-label {
+	color: #FF6262;
+	font-size: 14px;
+	font-weight: 900;
+	position: absolute;
+	vertical-align: middle;
+	text-align: center;
+	border-top-width: 5px;
+	border-top-style: solid;
+	border-left-width: 4px;
+	border-left-style: solid;
+	border-color:transparent;
+}
 .box-wrap {
 	max-width: 670px;
-	
+	min-width: 332px;
 	margin: 30px auto;
 	overflow: auto;
 	padding: 0;
 }
 .box {
-	background: #0b000f;
-	border: 0px solid #98E;
-	width: 768px;
-	margin: 0px 0;
+	background: rgba(0, 0, 0, 0.46);
+	border: 1px solid #71d2ff;
+	width: 330px;
+	margin: 8px 0;
 	padding: 0;
-	
 }
-
-div#global.ban{
-	max-width: 768px
-}
-
 .box ul {
 	padding: 2px 15px;
 }
@@ -52,139 +65,102 @@ div#global.ban{
 	list-style: none;
 	margin: 0;
 }
-.box.left {
-	background: #0b000f;
-	color: #7fdd57;
-	border: 0px solid #060;
-	float: left;
-	width: 50%;
-}
-.box.right {
-	background: #0b000f;
-	color: #7fdd57;
-	border: 0px solid #006;
-	float: right;
-	width: 50%;
-}
 
-.box h2 {
-	padding: 3px 7px;
-	font-size: 12pt;
-	
-}
-.box.left h2 {
-	background: #7fdd57;
-	color: #677965;
-}
-.box.right h2 {
-	background: #7fdd57;
-	color: #0b000f;
-}
 .box img {
 	float: none;
-	margin: 0px auto;
+	margin: 10px auto;
 }
 
-span.quote 
-{
-    color:#677965;
+
+body {
+	background: black;
+	background-image: linear-gradient(rgba(5, 135, 255, 0.28), transparent);
+	background-attachment: fixed;
 }
-@font-face 
-{
-  font-family: 'lain';
-  src: url('./fonts/nrdyyh.woff') format('woff'),
-       url('./fonts/tojcxo.TTF') format('truetype');
+header div.subtitle, h1 {
+    color: #ffffff;
 }
-h1 
-{
-	font-family: 'arial black', arial;
-	letter-spacing: -20px;
-	font-size: 116pt;	
-	text-align: center;
-	color: #7fdd57;
+
+table tbody td {
+        margin: 0;
+		padding: 0px;
+        text-align: left;
+    }
+
+#global-hedder.ban ul {
+  list-style-type: none;
+  text-align:center;
+  padding:0;
+  margin:0;
 }
-header div.subtitle 
-{
-    color: #677965;
-}
-div.title 
-{
-	color: #677965;
-	font-family: Arial, Helvetica, sans-serif;
-}
-div.title p 
-{
-	font-size: 10px;
-}
-a:link, a:visited, .intro a.email span.name {
-	color: #677965;
+#global-hedder.ban a{
 	text-decoration: none;
-	font-family: sans-serif;
-	font-size: 11pt;
+	color: rgb(202, 255, 224);
+	font-size: 20px;
+}
+#global-hedder.ban {
+	font-size: medium;
+	font-style: normal;
+	color: #FFF;
+	text-align: center;
+	background: transparent;
+	border: none;
+	max-width: 700px;
+	margin: 30px auto;
+}
+#global-hedder.ban table tbody td {
+text-align:center;
 }
 
-div.post.reply div.body a:link:hover, div.post.reply div.body a:visited:hover 
-{
-	color: #7fdd57;
-}
-p.intro span.subject {
-	font-size: 12px;
-	font-family: sans-serif;
-	color: #7fdd57;
-	font-weight: 800;
-}
-p.intro span.name {
-	color: #7fdd57;
-	font-weight: 800;
+.top-logo {
+margin: 10px auto;
+width: 800px;
 }
 
-p.intro a.email, p.intro a.email span.name, p.intro a.email:hover, p.intro a.email:hover span.name {
-	color: #7fdd57;
+#background_wrap {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-size: 100%;
+    background-image: url('/static/home-bg.jpg');
+    background-attachment: scroll;
 }
-.bar
-{
-	background: #0b000f!important;
-	-moz-box-shadow: 0 0 40px #000;
-	-webkit-box-shadow: 0 0 40px #000;
-	box-shadow: 0 0 40px #000;
-	
+#background_wrap:before {
+	content: " ";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.46) 20.17%, rgba(0, 0, 0, 0.65) 30.67%, rgba(0, 0, 1, 0.91) 55.88%, black);
 }
-.bar.top
-{
-	border-bottom: 0px solid #0b000f;
+.ban.box {
+    margin: 0px 10px 30px 10px;
+	border: 1px solid #C9194B;
+	color: #ffffff;
 }
-.bar.bottom
-{
-	border-top: 1px solid #666;
+.sections {
+    display: table-cell;
 }
-
-div.boardlist 
-{
-	color: #0b000f;
+.section-contr {
+    display: table;
+    max-width: 700px;
+    margin: 30px auto;
 }
-
-div.ban 
-{
-	background-color: rgba(11, 0, 15, 0);
-	border: 0px solid #555;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	text-align: left!important;
+div.ban h2 {
+	background: #C9194B;
+	color: #ffffff;
 }
-div.ban h2 
-{
-	background: #0b000f;
-	color: #7fdd57;
-	padding: 5px 5px;
-	font-size: 16pt;
-	border-bottom: 0px solid #555;
+div.module, div.ban {
+	border: none;
+	max-width: 700px;
+	margin: 30px auto;
 }
-
-div.ban h2:not(:nth-child(1)) 
-{
-	border-top: 0px solid #0b000f;
+a, a:visited {
+text-decoration: none;
+color: #46D5AA;
 }
-
-
-

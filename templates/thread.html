@@ -1,23 +1,38 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-
-        <script type="text/javascript">
-          var active_page = "thread";
-	</script>
-
-	{% include 'header.html' %}
 	<title>{{ board.url }} - {% if config.thread_subject_in_title and thread.subject %}{{ thread.subject }}{% else %}{{ board.title|e }}{% endif %}</title>
+	{% include 'header-common.html' %}
+    <script type="text/javascript">
+          var active_page = "thread";
+          var rule_rev = {{ config.rules_rev }};
+					var rule_rev_guro = {{ config.rules_rev_guro }};
+	</script>
+  	<script language="JavaScript">
+  	    function hideNotification() {
+			localStorage.setItem('readNotifications', {{ config.global_message_rev }});
+			document.getElementById('notifications').style.display = 'none';
+			return false;
+  		}	
+		function checkNotifications() {
+			if (localStorage.getItem("readNotifications") === "{{ config.global_message_rev }}") {
+			document.getElementById('notifications').style.display = 'none';
+			} else {
+  		    document.getElementById('notifications').style.display = 'block';
+  	    	}
+			return false;
+		}
+  	</script>
+	{% include 'header.html' %}
+    
 </head>
 <body id="thread">
+	<div id="background_color"></div>
 	<div class="bar top">
 		{{ boardlist.top }}
 	</div>
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
-	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
+	{% if config.url_banner %}<a href="/"><img class="board_image" src="{{ config.url_banner }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" /></a>{% endif %}
 	<header>
 		<h1>{{ board.url }} - {{ board.title|e }}</h1>
 		<div class="subtitle">
@@ -28,7 +43,12 @@
 					{{ board.subtitle|e }}
 				{% endif %}
 			{% endif %}
-			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
+			{% if mod %}</div>
+			<div class="your-a-admin">
+				<p>You are currently moderating this board, with great power comes great responsible!</p>
+				<p>If you are trying to identify your self as a Mod, put "Username ## Mod"</p>
+				<p><a href="?/">{% trans %}[⬅ Return to dashboard]{% endtrans %}</a></p>
+			</div>{% endif %}
 		</div>
 	</header>
 
@@ -37,17 +57,20 @@
 	{{ config.ad.top }}
 
 	{% include 'post_form.html' %}
-
-	{% if config.global_message %}<hr /><div class="blotter">{{ config.global_message }}</div>{% endif %}
 	<hr />
-	<a href="{{ return }}">[{% trans %}Return{% endtrans %}]</a>
-	<a href="#bottom" style="padding-left: 10px">[{% trans %}Go to bottom{% endtrans %}]</a>
+	{% if config.global_message %}<div style="display: none;" class="blotter" id="notifications">{{ config.global_message }}<br/><a href="#" class="reply-button" onClick="hideNotification();">Dismiss Notification</a><hr /></div>{% endif %}
+	
+	<a class="reply-button" href="{{ return }}">⬅ Return</a>
+	<a class="reply-button" href="#bottom" style="margin-left: 10px">⬇ Go to bottom</a>
 	<hr />
 	<form name="postcontrols" action="{{ config.post_url }}" method="post">
 	<input type="hidden" name="board" value="{{ board.uri }}" />
 	{% if mod %}<input type="hidden" name="mod" value="1" />{% endif %}
 	{{ body }}
+	<div id="delete-area" style="display: none;">
 	{% include 'report_delete.html' %}
+	</div>
+	<div id="delete-button" style="display: block;"><h3><a class="reply-button" href="#" onclick="toggle('delete-area', 'delete-button')" >Delete my post</a></h3></div>
 	</form>
 
 	{{ boardlist.bottom }}
@@ -56,23 +79,20 @@
 
 	<footer>
 		{% include 'badges.html' %}
-		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
-			<a href='https://int.vichan.net/devel/'>vichan</a> + 
-			<a href='https://github.com/lainchan/lainchan'>lainchan</a> {{ config.version }} -
-		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group
-		<br><a href="https://engine.vichan.net/">vichan</a> Copyright &copy; 2012-2015 vichan-devel
-		<br><a href="https://github.com/lainchan/lainchan">lainchan</a> Copyright &copy; 2014-2015 lainchan Administration</p>
-		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
+		{% include 'footer.html' %}
 	</footer>
 	<div class="bar bottom">
 		<div class="threadlinks">
-			<span class="threadlink">[ <a href="{{ return }}">{% trans %}Return{% endtrans %}</a> /</span>
-        		<span class="threadlink"><a href="#" style="padding-left: 10px"> {% trans %}Go to top{% endtrans %}</a> /</span>
+			<span class="threadlink"><a href="{{ return }}">⬅ Return</a><a href="#">⬆ Go to top</a></span>
 		</div>
 		<div class=pages></div>
+		<div id="bottom-bar-settings-area">
+			{% include 'settings-bar.html' %}
+		</div>
 	</div>
 	<script type="text/javascript">{% raw %}
 		ready();
+		checkNotifications();
 	{% endraw %}</script>
 	<a href="#" id="bottom"></a>
 </body>

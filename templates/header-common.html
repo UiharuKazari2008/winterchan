@@ -1,0 +1,7 @@
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.url_favicon }}">{% endif %}
+		<link rel="mask-icon" href="{{ config.meta_pinned_icon }}" color="{{ config.meta_pinned_color }}" >
+		<meta name="theme-color" content="{{ config.meta_theme_color }}">
+		{% if config.meta_keywords %}<meta name="keywords" content="{{ config.meta_keywords }}">{% endif %}

@@ -1,50 +1,70 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-        <script type="text/javascript">
-          {% if not no_post_form %}
-            var active_page = "index";
-	  {% else %}
-            var active_page = "ukko";
-          {% endif %}
-        </script>
-
-	{% include 'header.html' %}
 	<title>{{ board.url }} - {{ board.title|e }}</title>
+	<!-- START INJECT - Header -->
+	{% include 'header-common.html' %}
+    <script type="text/javascript">
+      {% if not no_post_form %}
+        var active_page = "index";
+  	  {% else %}
+        var active_page = "ukko";
+      {% endif %}
+      var rule_rev = {{ config.rules_rev }};
+      var rule_rev_guro = {{ config.rules_rev_guro }};
+    </script>
+	{% include 'header.html' %}
+	<!-- END INJECT-->
+  	<script language="JavaScript">
+  	function hideNotification() {
+			localStorage.setItem('readNotifications', {{ config.global_message_rev }});
+			document.getElementById('notifications').style.display = 'none';
+			return false;
+  		}	
+		function checkNotifications() {
+			if (localStorage.getItem("readNotifications") === "{{ config.global_message_rev }}") {
+			document.getElementById('notifications').style.display = 'none';
+			} else {
+  		    document.getElementById('notifications').style.display = 'block';
+  	    	}
+			return false;
+		}
+  	</script>
 </head>
 <body>
+	<div id="background_color"></div>
 	<div class="bar top">
+		<!-- START INJECT - Boardlist -->
 		{{ boardlist.top }}
+		<!-- END INJECT-->
 	</div>
+	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr/>{% endif %}
+	{% if config.url_banner %}<a href="/"><img href="/" class="board_image" src="{{ config.url_banner }}" alt="Banner" /></a>{% endif %}
 
-	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
-	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
-
-	<header>
-		<h1>{{ board.url }} - {{ board.title|e }}</h1>
-		<div class="subtitle">
-			{% if board.subtitle %}
-				{% if config.allow_subtitle_html %}
-					{{ board.subtitle }}
-				{% else %}
-					{{ board.subtitle|e }}
-				{% endif %}
-			{% endif %}
-			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
-		</div>
-	</header>
-
-	{% include 'attention_bar.html' %}
-
-	{{ config.ad.top }}
-
-	{% if not no_post_form %}
-		{% include 'post_form.html' %}
-	{% else %}
-		{% include 'boardlist.html' %}
+			<header>
+				<h1>{{ board.url }} - {{ board.title|e }}</h1>
+				<div class="subtitle">
+					{% if board.subtitle %}
+						{% if config.allow_subtitle_html %}
+							{{ board.subtitle }}
+						{% else %}
+							{{ board.subtitle|e }}
+						{% endif %}
+					{% endif %}
+				{% if mod %}</div>
+				<div class="your-a-admin">
+					<p>You are currently moderating this board, with great power comes great responsible!</p>
+					<p><a href="?/">{% trans %}⬅ Return to dashboard{% endtrans %}</a></p>
+				</div>{% endif %}
+			</header>
+			{% include 'attention_bar.html' %}
+			{{ config.ad.top }}	
+			{% if not no_post_form %}
+			<div id="post-form-area" style="display: none;">
+			{% include 'post_form.html' %}
+			</div>
+			<div id="post-form-button" style="display: block;"><h3><a class="reply-button" href="#" onclick="toggle('post-form-area', 'post-form-button')" >❄ Create a new thread</a></h3></div>
+			{% else %}
 	{% endif %}
 
 	{% if config.page_nav_top %}
@@ -55,46 +75,40 @@
 			{{ btn.next }}
 		</div>-->
 	{% endif %}
-
-	{% if config.global_message %}<hr /><div class="blotter">{{ config.global_message }}</div>{% endif %}
 	<hr />
+	{% if config.global_message %}<div style="display: none;" class="blotter" id="notifications">{{ config.global_message }}<br/><a href="#" class="reply-button" onClick="hideNotification();">Dismiss Notification</a><hr /></div>{% endif %}
 	<form name="postcontrols" action="{{ config.post_url }}" method="post">
 	<input type="hidden" name="board" value="{{ board.uri }}" />
 	{% if mod %}<input type="hidden" name="mod" value="1" />{% endif %}
 	{{ body }}
+	<div id="delete-area" style="display: none;">
 	{% include 'report_delete.html' %}
+	</div>
+	<div id="delete-button" style="display: block;"><h3><a class="reply-button" href="#" onclick="toggle('delete-area', 'delete-button')" > Delete my post</a></h3></div>
 	</form>
-
 	{{ config.ad.bottom }}
-
 	<footer>
-		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
-			<a href='https://int.vichan.net/devel/'>vichan</a> + 
-			<a href='https://github.com/lainchan/lainchan'>lainchan</a> {{ config.version }} -
-		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group
-		<br><a href="https://engine.vichan.net/">vichan</a> Copyright &copy; 2012-2015 vichan-devel
-		<br><a href="https://github.com/lainchan/lainchan">lainchan</a> Copyright &copy; 2014-2015 lainchan Administration</p>
-
-		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
+	{% include 'badges.html' %}
+	{% include 'footer.html' %}
 	</footer>
-
 	<div class="bar bottom">
 		<div class="pages">
-			{{ btn.prev }} [ {% for page in pages %}
-			 <a {% if page.selected %}class="selected"{% endif %}{% if not page.selected %}href="{{ page.link }}"{% endif %}>{{ page.num }}</a>{% if not loop.last %} /{% endif %}
-			{% endfor %} ] {{ btn.next }}
 			{% if config.catalog_link %}
-			 |  <a href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">Catalog</a>
+			<a id="catalog-btn" href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">⭐ Catalog</a>
 			{% endif %}
+			{{ btn.prev }} {% for page in pages %}
+			<a {% if page.selected %}class="selected"{% endif %}{% if not page.selected %}href="{{ page.link }}"{% endif %}>{{ page.num }}</a>
+			{% endfor %} {{ btn.next }}
+		</div>
+		<div id="bottom-bar-settings-area">
+			{% include 'settings-bar.html' %}
 		</div>
 	</div>
-
-
 	</div>
 	<script type="text/javascript">{% raw %}
 		ready();
+		checkNotifications();
 	{% endraw %}</script>
-	
 </body>
 </html>
 

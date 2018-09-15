@@ -23,6 +23,16 @@
  *
  */
 
+/* Winterchan Community Project
+ * Copyright (c) 2013-2018 Academy City Research
+ * Copyright (c) 2018 Nippon Yuki Telecom Inc. (NYTI)
+ * 
+ * This is a modified version of the standard config.php from Tinyboard to match the config of Winterchan closely
+ * You need to also install the following to your system for it to function as it has compressed a lot of features
+ * - ImageMagick, ffmpeg, exiftool
+ * 
+*/
+
 	defined('TINYBOARD') or exit;
 
 /*
@@ -35,6 +45,13 @@
 	// This used to be wrongly named $config['blotter'] (still exists as an alias).
 	// $config['global_message'] = 'This is an important announcement!';
 	$config['blotter'] = &$config['global_message'];
+	
+	// Revistion of the Global Message, inciment or change every time to "notify" users of change aka show the banner once dismissed by a user
+	$config['global_message_rev'] = '1';
+	// Revision of Rules for the Guro board, same as above
+	$config['rules_rev_guro'] = '1';
+	// Revision of Rules, same as above
+	$config['rules_rev'] = '1';
 
 	// Automatically check if a newer version of Tinyboard is available when an administrator logs in.
 	$config['check_updates'] = true;
@@ -318,12 +335,13 @@
 	 * Read more: http://tinyboard.org/docs/index.php?p=Config/Filters
 	 */
 
+	// NOTE: These values are set for a system behind a reverse proxy where flood protection could lock the system out, so the values are wider.
 	// Minimum time between between each post by the same IP address.
-	$config['flood_time'] = 10;
+	$config['flood_time'] = 3;
 	// Minimum time between between each post with the exact same content AND same IP address.
-	$config['flood_time_ip'] = 120;
+	$config['flood_time_ip'] = 5;
 	// Same as above but by a different IP address. (Same content, not necessarily same IP address.)
-	$config['flood_time_same'] = 30;
+	$config['flood_time_same'] = 15;
 
 	// Minimum time between posts by the same IP address (all boards).
 	$config['filters'][] = array(
@@ -529,14 +547,14 @@
 
 	// Allow users to mark their image as a "spoiler" when posting. The thumbnail will be replaced with a
 	// static spoiler image instead (see $config['spoiler_image']).
-	$config['spoiler_images'] = false;
+	$config['spoiler_images'] = true;
 
 	// With the following, you can disable certain superfluous fields or enable "forced anonymous".
 
 	// When true, all names will be set to $config['anonymous'].
-	$config['field_disable_name'] = false;
+	$config['field_disable_name'] = true;
 	// When true, there will be no email field.
-	$config['field_disable_email'] = false;
+	$config['field_disable_email'] = true;
 	// When true, there will be no subject field.
 	$config['field_disable_subject'] = false;
 	// When true, there will be no subject field for replies.
@@ -647,8 +665,7 @@
  */
 	// Maximum number of images allowed. Increasing this number enabled multi image.
 	// If you make it more than 1, make sure to enable the below script for the post form to change.
-	// $config['additional_javascript'][] = 'js/multi_image.js';
-	$config['max_images'] = 1;
+	$config['max_images'] = 5;
 
 	// Method to use for determing the max filesize. 
 	// "split" means that your max filesize is split between the images. For example, if your max filesize
@@ -702,16 +719,16 @@
 	$config['convert_args'] = '-size %dx%d %s -thumbnail %dx%d -auto-orient +profile "*" %s';
 
 	// Strip EXIF metadata from JPEG files.
-	$config['strip_exif'] = false;
+	$config['strip_exif'] = true;
 	// Use the command-line `exiftool` tool to strip EXIF metadata without decompressing/recompressing JPEGs.
 	// Ignored when $config['redraw_image'] is true. This is also used to adjust the Orientation tag when
 	//  $config['strip_exif'] is false and $config['convert_manual_orient'] is true.
-	$config['use_exiftool'] = false;
+	$config['use_exiftool'] = true;
 	
 	// Redraw the image to strip any excess data (commonly ZIP archives) WARNING: This might strip the
 	// animation of GIFs, depending on the chosen thumbnailing method. It also requires recompressing
 	// the image, so more processing power is required.
-	$config['redraw_image'] = false;
+	$config['redraw_image'] = true;
 	
 	// Automatically correct the orientation of JPEG files using -auto-orient in `convert`. This only works
 	// when `convert` or `gm` is selected for thumbnailing. Again, requires more processing power because
@@ -734,7 +751,8 @@
 	$config['allowed_ext'][] = 'bmp';
 	$config['allowed_ext'][] = 'gif';
 	$config['allowed_ext'][] = 'png';
-	// $config['allowed_ext'][] = 'svg';
+	$config['allowed_ext'][] = 'svg';
+	$config['allowed_ext_files'][] = 'webm';
 
 	// Allowed extensions for OP. Inherits from the above setting if set to false. Otherwise, it overrides both allowed_ext and
 	// allowed_ext_files (filetypes for downloadable files should be set in allowed_ext_files as well). This setting is useful
@@ -751,10 +769,20 @@
 	// };
 
 	// Thumbnail to use for the non-image file uploads.
-	$config['file_icons']['default'] = 'file.png';
+	$config['file_icons']['pdf'] = 'pdf.png';
+	$config['file_icons']['mp4'] = 'mp4.png';
+	$config['file_icons']['mov'] = 'mp4.png';
+	$config['file_icons']['mkv'] = 'mp4.png';
+	$config['file_icons']['mp3'] = 'mp3.png';
+	$config['file_icons']['m4a'] = 'mp3.png';
+	$config['file_icons']['wav'] = 'mp3.png';
+	$config['file_icons']['flac'] = 'mp3.png';
+	$config['file_icons']['aac'] = 'mp3.png';
 	$config['file_icons']['zip'] = 'zip.png';
-	$config['file_icons']['webm'] = 'video.png';
-	$config['file_icons']['mp4'] = 'video.png';
+	$config['file_icons']['rar'] = 'zip.png';
+	$config['file_icons']['nzb'] = 'nzb.png';
+	$config['file_icons']['torrent'] = 'torrent.png';
+	$config['file_icons'][] = 'file.jpg';
 	// Example: Custom thumbnail for certain file extension.
 	// $config['file_icons']['extension'] = 'some_file.png';
 
@@ -786,20 +814,22 @@
 	$config['show_filename'] = true;
 
 	// WebM Settings
-	$config['webm']['use_ffmpeg'] = false;
-	$config['webm']['allow_audio'] = false;
-	$config['webm']['max_length'] = 120;
+	$config['webm']['use_ffmpeg'] = true;
+	$config['webm']['allow_audio'] = true;
+	$config['webm']['max_length'] = 900;
 	$config['webm']['ffmpeg_path'] = 'ffmpeg';
 	$config['webm']['ffprobe_path'] = 'ffprobe';
 
 	// Display image identification links for ImgOps, regex.info/exif, Google Images and iqdb.
-	$config['image_identification'] = false;
+	$config['image_identification'] = true;
 	// Which of the identification links to display. Only works if $config['image_identification'] is true.
 	$config['image_identification_imgops'] = true;
-	$config['image_identification_exif'] = true;
+	$config['image_identification_exif'] = false;
 	$config['image_identification_google'] = true;
 	// Anime/manga search engine.
 	$config['image_identification_iqdb'] = false;
+	// SauseNAO engine, Pretty much all you need for a Animeboard
+	$config['image_identification_sauce'] = true;
 	
 	// Set this to true if you're using a BSD
 	$config['bsd_md5'] = false;
@@ -865,10 +895,10 @@
 	// Assign each poster in a thread a unique ID, shown by "ID: xxxxx" before the post number.
 	$config['poster_ids'] = false;
 	// Number of characters in the poster ID (maximum is 40).
-	$config['poster_id_length'] = 5;
+	$config['poster_id_length'] = 8;
 
 	// Show thread subject in page title.
-	$config['thread_subject_in_title'] = false;
+	$config['thread_subject_in_title'] = true;
 
 	// Additional lines added to the footer of all pages.
 	$config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
@@ -877,7 +907,7 @@
 	$config['genpassword_chars'] = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
 
 	// Optional banner image at the top of every page.
-	// $config['url_banner'] = '/banner.php';
+	$config['url_banner'] = '/b.php';
 	// Banner dimensions are also optional. As the banner loads after the rest of the page, everything may be
 	// shifted down a few pixels when it does. Making the banner a fixed size will prevent this.
 	// $config['banner_width'] = 300;
@@ -885,8 +915,7 @@
 
 	// Custom stylesheets available for the user to choose. See the "stylesheets/" folder for a list of
 	// available stylesheets (or create your own).
-	$config['stylesheets']['Yotsuba B'] = ''; // Default; there is no additional/custom stylesheet for this.
-	$config['stylesheets']['Yotsuba'] = 'yotsuba.css';
+	$config['stylesheets']['Winterchan Aqua'] = ''; // Default; there is no additional/custom stylesheet for this.
 	// $config['stylesheets']['Futaba'] = 'futaba.css';
 	// $config['stylesheets']['Dark'] = 'dark.css';
 
@@ -894,15 +923,16 @@
 	// $config['uri_stylesheets'] = 'http://static.example.org/stylesheets/';
 
 	// The default stylesheet to use.
-	$config['default_stylesheet'] = array('Yotsuba B', $config['stylesheets']['Yotsuba B']);
+	// Winterchan is designed to only have a single stylesheet unless overided by the board config
+	$config['default_stylesheet'] = array('Winterchan Aqua', $config['stylesheets']['Winterchan Aqua']);
 
 	// Make stylesheet selections board-specific.
-	$config['stylesheets_board'] = false;
+	$config['stylesheets_board'] = true;
 
 	// Use Font-Awesome for displaying lock and pin icons, instead of the images in static/.
 	// http://fortawesome.github.io/Font-Awesome/icon/pushpin/
 	// http://fortawesome.github.io/Font-Awesome/icon/lock/
-	$config['font_awesome'] = true;
+	$config['font_awesome'] = false;
 	$config['font_awesome_css'] = 'stylesheets/font-awesome/css/font-awesome.min.css';
 
 	/*
@@ -926,7 +956,7 @@
 	$config['boardlist_wrap_bracket'] = false;
 
 	// Show page navigation links at the top as well.
-	$config['page_nav_top'] = false;
+	$config['page_nav_top'] = true;
 
 	// Show "Catalog" link in page navigation. Use with the Catalog theme.
 	// $config['catalog_link'] = 'catalog.html';
@@ -975,7 +1005,7 @@
  */
 
 	// Additional Javascript files to include on board index and thread pages. See js/ for available scripts.
-	$config['additional_javascript'][] = 'js/inline-expanding.js';
+	$config['additional_javascript'][] = 'js/winterchan.js';
 	// $config['additional_javascript'][] = 'js/local-time.js';
 
 	// Some scripts require jQuery. Check the comments in script files to see what's needed. When enabling
@@ -1005,14 +1035,15 @@
  */
 
 	// Enable embedding (see below).
-	$config['enable_embedding'] = false;
+	$config['enable_embedding'] = true;
 
 	// Custom embedding (YouTube, vimeo, etc.)
 	// It's very important that you match the entire input (with ^ and $) or things will not work correctly.
+	// NOTE: Winterchan differs by using HTTPS YouTube and NoCookie for privacy.
 	$config['embedding'] = array(
 		array(
 			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="http://www.youtube.com/embed/$2"></iframe>'
+			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="https://www.youtube-nocookie.com/embed/$2"></iframe>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
@@ -1220,19 +1251,19 @@
 	$config['mod']['default'] = '/';
 
 	// Mod links (full HTML).
-	$config['mod']['link_delete'] = '[D]';
 	$config['mod']['link_ban'] = '[B]';
 	$config['mod']['link_bandelete'] = '[B&amp;D]';
-	$config['mod']['link_deletefile'] = '[F]';
-	$config['mod']['link_spoilerimage'] = '[S]';
 	$config['mod']['link_deletebyip'] = '[D+]';
 	$config['mod']['link_deletebyip_global'] = '[D++]';
+	$config['mod']['link_delete'] = '[Delete]';
+	$config['mod']['link_deletefile'] = '[DelFile]';
+	$config['mod']['link_spoilerimage'] = '[Spoiler]';
 	$config['mod']['link_sticky'] = '[Sticky]';
-	$config['mod']['link_desticky'] = '[-Sticky]';
+	$config['mod']['link_desticky'] = '[✅Sticky]';
 	$config['mod']['link_lock'] = '[Lock]';
-	$config['mod']['link_unlock'] = '[-Lock]';
-	$config['mod']['link_bumplock'] = '[Sage]';
-	$config['mod']['link_bumpunlock'] = '[-Sage]';
+	$config['mod']['link_unlock'] = '[✅Lock]';
+	$config['mod']['link_bumplock'] = '[Pause]';
+	$config['mod']['link_bumpunlock'] = '[✅Pause]';
 	$config['mod']['link_editpost'] = '[Edit]';
 	$config['mod']['link_move'] = '[Move]';
 
@@ -1248,6 +1279,11 @@
 	//	'color:purple', // Change name style; optional
 	//	'color:purple' // Change tripcode style; optional
 	//);
+    $config['custom_capcode']['Mod'] = array(
+          '<span class="capcode" style="color:yellow;display:inline;"> ## %s</span>',
+          'color:yellow;display:inline', // Change name style; optional
+          'color:yellow;display:inline' // Change tripcode style; optional
+    );
 
 	// "## Admin" makes everything red and bold, including the name and tripcode:
 	//$config['custom_capcode']['Admin'] = array(
@@ -1255,6 +1291,11 @@
 	//	'color:red;font-weight:bold', // Change name style; optional
 	//	'color:red;font-weight:bold' // Change tripcode style; optional
 	//);
+    $config['custom_capcode']['Admin'] = array(
+          '<span class="capcode" style="color:orangered;font-weight:bold;display:inline;"> ## %s</span>',
+          'color:red;font-weight:bold;display:inline', // Change name style; optional
+          'color:red;font-weight:bold;display:inline', // Change tripcode style; optional
+    );
 
 	// Enable the moving of single replies
 	$config['move_replies'] = false;

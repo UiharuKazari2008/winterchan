@@ -13,32 +13,21 @@
  */
 
 $(window).ready(function() {
-  if (typeof localStorage.rulesAccepted === "undefined") {
+  if (typeof localStorage.rulesAcceptedRev1 === "undefined") {
 
-    // generate a 7-character long random string
-    captcha = Math.random().toString(36).substring(2, 9)
+    $("body").html("<body class='rules'> \
+	  	<div id='rules-section'> \
+	  		<div class='rules-top'><h1>Winterchan Rule Agreement</h1></div> \
+	  		<div class='rules-content-wrapper'> \
+	  			<div id='rules-content'></div> \
+	  		</div> \
+	  		<div id='rules-bottom'></div> \
+	  	</div> \
+	  </body>");
 
-    $("body")
-        .prepend("<div id='rules-popup'>");
+	$("#rules-content").load("/templates/rules-new.html");
 
-    $("#rules-popup")
-        .append("<div class='rules-popup-top'>lainchan rule agreement</div>")
-        .append("<div class='rules-popup-content-wrapper'></div>")
-        .append("<div class='rules-popup-bottom'></div>");
-
-    $(".rules-popup-content-wrapper")
-        .append("<div id='rules-popup-content'></div>");
-    $("#rules-popup-content")
-        .load("/templates/rules.html");
-
-    $(".rules-popup-bottom")
-        .append("<div class='rules-popup-bottom-instructions'>If you accept the rules, retype the captcha and press ACCEPT.</div>")
-        .append("<div class='rules-popup-captcha-wrapper'></div>");
-    $(".rules-popup-captcha-wrapper")
-        .append("<div class='rules-popup-captcha'>" + captcha + "</div>")
-        .append("<form class='rules-popup-form' onsubmit=\"if ($('#captcha').val() == '" + captcha + "') { localStorage.rulesAccepted = 1; $('#rules-popup').remove(); } return false;\"></form>");
-    $(".rules-popup-form")
-        .append("<input class='rules-popup-form-input' type='text' id='captcha' />")
-        .append("<input type='submit' value='ACCEPT' />");
-  }
+	$("#rules-bottom")
+    	.append("<div><a class='rules-bottom-link' href='#' onClick=\"localStorage.rulesAcceptedRev1 = 1; location.reload();\">I ACCEPT THE RULES.</a></div>")
+	}
 })
